@@ -12,6 +12,7 @@ tags:
   - docker
 ---
 
+## Command
 ```bash
 docker run -it -v /:/mnt alpine chroot /mnt
 ```
