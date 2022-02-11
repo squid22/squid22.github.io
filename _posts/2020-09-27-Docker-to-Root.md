@@ -72,6 +72,11 @@ sh to run shell
 
 ## Abusing `cap_sys_module`
 
+### Check the capabilities
+```bash
+capsh --print
+```
+
 ### Install the following requirements
 ```bash
 apt update && apt install -y gcc make linux-headers
