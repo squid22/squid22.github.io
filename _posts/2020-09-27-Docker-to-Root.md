@@ -69,6 +69,7 @@ chroot /mnt to change root directory to /mnt
 sh to run shell
 ```
 
+
 # Abusing `cap_sys_module`
 
 ## Install the following requirements
@@ -109,6 +110,7 @@ clean:
 ```bash
 make && insmod reverse-shell.ko
 ```
+
 
 # Abusing cap-sys_admin
 
