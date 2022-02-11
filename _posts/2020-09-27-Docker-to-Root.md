@@ -1,8 +1,8 @@
 ---
 layout: single
 title: Docker to Root
-excerpt: A short document to show hoew to escalae privileges from Docker to root.
-date: 2021-09-27
+excerpt: A short document to show how to escalae privileges from Docker to root.
+date: 2022-02-11
 classes: wide
 header:
   teaser: #/assets/images/htb-writeup-giddy/giddy_logo.png
