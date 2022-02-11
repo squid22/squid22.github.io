@@ -112,7 +112,8 @@ make && insmod reverse-shell.ko
 ```
 
 
-# Abusing cap-sys_admin
+
+# Abusing `cap_sys_admin`
 
 ## Check the capabilities
 ```bash
