@@ -9,7 +9,7 @@ header:
 categories:
   - privesc
 tags:
-  - HackTheBox
+  - linux, hackthebox, privesc, cheat sheet
 ---
 
 | **Command** | **Description** |
