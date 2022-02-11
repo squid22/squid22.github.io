@@ -40,7 +40,7 @@ root@15789112ea96:/#
 
 ```bash
 # Exploit Title: Docker Daemon - Unprotected TCP Socket
-# Date: 20-07-2017
+# Date: 11-02-2022
 # Exploit Author: Martin Pizala
 # Vendor Homepage: <https://www.docker.com>
 # Software Link: <https://www.docker.com/get-docker>
