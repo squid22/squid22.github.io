@@ -1,7 +1,7 @@
 ---
 layout: single
 title: Docker to Root
-excerpt: A short document to show how to escalae privileges from Docker to root.
+excerpt: A short document to show how to escalate privileges from Docker to root.
 date: 2022-02-11
 classes: wide
 header:
