@@ -693,7 +693,7 @@ INFO: Done in 00M 07S
 ```
 
 ## ForceChangePassword - audit2020
-I can mark user as "Owned" and noticed that I had the ability to change the password for the account audit2020.
+I can mark my user as "Owned" and noticed that I had the ability to change the password for the account audit2020.
 
 ![Untitled](/assets/images/htb-blackfield/Untitled.png)
 
@@ -734,7 +734,8 @@ net rpc trust           Manage trusts
 net rpc conf            Configure a remote samba server
 ```
 
-```bash
+Checking the help and options of the command.
+```Text
 ➜  Blackfield net rpc password --help
 
 net [<method>] user [misc. options] [targets]
@@ -787,13 +788,13 @@ Enter WORKGROUP\support's password:
 
 ![Untitled](/assets/images/htb-blackfield/Untitled%203.png)
 
-# More Creds
+# Valid Creds
 
 ```bash
 audit2020:5quid12345$
 ```
 
-# Enumerating shares using audit202
+# Enumerating shares using audit2020
 
 ## crackmapexec
 
@@ -1536,7 +1537,7 @@ blackfield\svc_backup
 
 # Privilege Escalation
 
-I can take advantage of the `SeBackupPrivilege` to be able to back up the SAM and SYSTEM
+I can take advantage of the `SeBackupPrivilege` to be able to back up the  `SAM`, `SYSTEM` and `NTDS`.
 
 ```bash
 Evil-WinRM* PS C:\Users\svc_backup\Documents> whoami /all
