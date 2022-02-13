@@ -639,9 +639,7 @@ I didn't have much at this point, so time to perform further Active Directory en
 
 Source:
 
-```bash
-https://github.com/fox-it/BloodHound.py
-```
+<https://github.com/fox-it/BloodHound.py>
 
 ```bash
 python3 bloodhound.py -u support -p '#00^BlackKnight' -d blackfield.local -dc dc01.blackfield.local -ns 10.129.156.28 -c all
