@@ -7,7 +7,7 @@ classes: wide
 header:
   teaser: /assets/images/htb-blackfield/htb-blackfield.png
 categories:
-  - walkthrough
+  - Walkthrough
 tags:
   - GetNPUsers
   - ASRepRoast
